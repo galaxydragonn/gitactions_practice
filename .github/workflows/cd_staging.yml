@@ -1,0 +1,40 @@
+name: Deploy to Staging/Dev                                         # Workflow ka title
+
+on:                                                                 # When this workflow will run...
+  push:
+    branches:
+      - "main"
+      
+      
+# We've to auto deploy 3 things -  i) HTTP-Server
+#                                 ii) WS-Server
+#                                iii) Web
+
+
+
+jobs:
+  autodeploy_everything:                                            # This is just a Job ID 
+    name: Deploying everything to the staging/dev cluster           # Human readable name of the job
+    
+    runs-on: ubuntu-latest
+    
+    steps:
+ 
+      - name: SSH into the DEV server/machine                              
+        run: 
+        
+        run:  | 
+				         echo "$ {{ secrets.MERA_SSH_PRIVATE_KEY }}"  &>  ~/mera_ssh_key
+				         
+				         ssh -i ~/mera_ssh_key root@69.69.69.69
+				         
+				         cd week-25-ci-next-app/
+				         git pull origin main
+				         pnpm install
+				         pnpm run build
+				         
+				         pm2 restart http-server
+				         pm2 restart ws-server
+				         pm2 restart web
+				         
+ -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
