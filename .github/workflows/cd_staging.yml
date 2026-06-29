@@ -24,17 +24,12 @@ jobs:
         run: 
         
         run:  | 
-				         echo "$ {{ secrets.MERA_SSH_PRIVATE_KEY }}"  &>  ~/mera_ssh_key
-				         
-				         ssh -i ~/mera_ssh_key root@69.69.69.69
-				         
-				         cd week-25-ci-next-app/
-				         git pull origin main
-				         pnpm install
-				         pnpm run build
-				         
-				         pm2 restart http-server
-				         pm2 restart ws-server
-				         pm2 restart web
-				         
- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                echo "$ {{ secrets.MERA_SSH_PRIVATE_KEY }}"  &>  ~/mera_ssh_key 
+                ssh -i ~/mera_ssh_key root@3.25.60.114
+                cd week-25-ci-next-app/
+                git pull origin main
+                pnpm install
+                pnpm run build 
+                pm2 restart http-server
+                pm2 restart ws-server
+                pm2 restart web 
