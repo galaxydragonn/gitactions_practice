@@ -31,6 +31,7 @@ jobs:
                 ssh -i ~/mera_ssh_key ubuntu@3.25.60.114 << 'EOF'
                   cd ~/gitactions_practice
                   git pull origin main
+                  npm install -g pnpm
                   pnpm install
                   pnpm run build 
                   pm2 restart http-server
