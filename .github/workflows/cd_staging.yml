@@ -23,6 +23,8 @@ jobs:
       - name: SSH into the DEV server/machine                                      
         run:  | 
                 echo "${{ secrets.MERA_SSH_PRIVATE_KEY }}"  &>  ~/mera_ssh_key 
+                mkdir -p ~/.ssh
+                ssh-keyscan -H 3.25.60.114 >> ~/.ssh/known_hosts
                 
                 ssh -i ~/mera_ssh_key root@3.25.60.114 << 'EOF'
                   cd ~/week-25-ci-next-app
