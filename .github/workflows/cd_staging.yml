@@ -20,9 +20,7 @@ jobs:
     
     steps:
  
-      - name: SSH into the DEV server/machine                              
-        run: 
-        
+      - name: SSH into the DEV server/machine                                      
         run:  | 
                 echo "$ {{ secrets.MERA_SSH_PRIVATE_KEY }}"  &>  ~/mera_ssh_key 
                 ssh -i ~/mera_ssh_key root@3.25.60.114
