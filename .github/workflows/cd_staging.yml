@@ -31,6 +31,10 @@ jobs:
                 ssh -i ~/mera_ssh_key ubuntu@3.25.60.114 << 'EOF'
                   cd ~/gitactions_practice
                   git pull origin main
+
+                  export NVM_DIR="$HOME/.nvm"
+                  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+                  
                   npm install -g pnpm
                   pnpm install
                   pnpm run build 
