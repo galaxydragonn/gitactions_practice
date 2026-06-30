@@ -20,25 +20,25 @@ jobs:
     
     steps:
  
-      - name: SSH into the DEV server/machine                                      
-        run:  | 
-                echo "${{ secrets.MERA_SSH_PRIVATE_KEY }}"  &>  ~/mera_ssh_key 
-                chmod 700 ~/mera_ssh_key
+      - name: SSH into the DEV server/machine
+        uses : appleboy/ssh-action@v1.2.2
+        with : 
+          host : 3.25.60.114
+          username : ubuntu
+          key : ${{ secrets.MERA_SSH_PRIVATE_KEY }}
 
-                mkdir -p ~/.ssh
-                ssh-keyscan -H 3.25.60.114 >> ~/.ssh/known_hosts
-
-                ssh -i ~/mera_ssh_key ubuntu@3.25.60.114 << 'EOF'
+          script :  |
                   cd ~/gitactions_practice
                   git pull origin main
 
                   export NVM_DIR="$HOME/.nvm"
                   [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+
                   npm install -g pnpm
                   pnpm install
                   pnpm run build 
+                  
                   pm2 restart http-server
                   pm2 restart ws-server
-                  pm2 restart web 
-                EOF
-              
+                  pm2 restart web       
+        
