@@ -26,6 +26,7 @@ jobs:
           host : 3.25.60.114
           username : ubuntu
           key : ${{ secrets.MERA_SSH_PRIVATE_KEY }}
+          port : 22
 
           script :  |
                   cd ~/gitactions_practice
@@ -37,7 +38,7 @@ jobs:
                   npm install -g pnpm
                   pnpm install
                   pnpm run build 
-                  
+
                   pm2 restart http-server
                   pm2 restart ws-server
                   pm2 restart web       
